@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet , Button , TextInput } from 'react-native';
+import { FlatList, Text, View, StyleSheet , Button , TextInput } from 'react-native';
 import { createMaterialTopTabNavigator } from 'react-navigation';
 
 
@@ -8,14 +8,70 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View >
-      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'stretch'}} >
+      <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch'}} >
+      
+        <Text>Eres nuevo?</Text>
+        <Button
+          onPress={() => this.props.navigation.navigate('SignUp')}
+          title= "Registrate !"
+        />
+
+        <Text>Eres viejo, ruco, y amargado?</Text>
+        <Button
+          onPress={() => this.props.navigation.navigate('Login')}
+          title= "Accede aqui!"
+        />
+        
+      </View>
+     
+      </View>      
+
+    );
+  }
+}
+
+class FriendsScreen extends React.Component{
+  state = {};
+
+  render(){
+    return(
+    <View>
+        <FlatList
+          data={[
+            {key: 'Devin'},
+            {key: 'Jackson'},
+            {key: 'James'},
+            {key: 'Joel'},
+            {key: 'John'},
+            {key: 'Jillian'},
+            {key: 'Jimmy'},
+            {key: 'Julie'},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        />
+
+    </View>)
+  }
+
+
+}
+
+
+class Posts extends React.Component{
+  state = {};
+
+  HandlePrivate(){}
+  HandleGlobal(){}
+  HandleShared(){}
+
+  render(){
+
+    return(
+    <View>
+       <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}} >
         <Button
           onPress={() => this.props.navigation.navigate('DrawerOpen')}
           title= "Privados"
-        />
-        <Button
-          onPress={() => this.props.navigation.navigate('DrawerOpen')}
-          title= "Mis Posts"
         />
         <Button
           onPress={() => this.props.navigation.navigate('DrawerOpen')}
@@ -23,28 +79,29 @@ class HomeScreen extends React.Component {
         />
         <Button
           onPress={() => this.props.navigation.navigate('DrawerOpen')}
-          title= "Perfil"
+          title= "Todos"
+        />       
+      </View>
+
+        <FlatList
+          data={[
+            {key: 'Esto es bien pisado we'},
+            {key: 'Me quiero morir we ;v'},
+            {key: 'Jimmy'},
+            {key: 'Julie'},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
         />
-      </View>
-      <View style={styles.container}>
-        <Text>Home Screen</Text>
-        <Button
-          onPress={() => this.props.navigation.navigate('DrawerOpen')}
-          title= "DrawerOpen"
-        />
-        
-      </View>
 
-      <View>
-
-      </View>
-
-      </View>
-      
-
-    );
+    </View>)
   }
+
+  GetPosts (){};
+
 }
+
+
+
 
 
 class ProfileScreen extends React.Component {
@@ -175,18 +232,26 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 8
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   }
 })
 
 
 export default createMaterialTopTabNavigator({
-  Home: { screen: HomeScreen },
+ // Home: { screen: HomeScreen },
   Login: { screen: LoginScreen },
   Profile: {screen : ProfileScreen},
-  SignUp: {screen : SignUpScreen}
+  SignUp: {screen : SignUpScreen},
+  Posts: {screen : Posts},
+  Friendos: {screen : FriendsScreen} 
+
 }, {
-  initialRouteName: 'Home',
-  activeColor: 'red',
-  inactiveColor: 'red',
-  barStyle: { backgroundColor: 'red' },
+  initialRouteName: 'Login',
+  activeColor: '#f40b07',
+  inactiveColor: '#f40b07',
+  barStyle: { backgroundColor: '#f40b07' },
 });
